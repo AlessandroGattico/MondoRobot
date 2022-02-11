@@ -5,7 +5,6 @@ import java.util.HashSet;
 public class Cell {
     private final int x;
     private final int y;
-    private boolean robotIn;
     private Items item;
     private Cell[] neighbours;
     private HashSet<Feels> feels;
@@ -56,5 +55,9 @@ public class Cell {
 
     public void deleteItem() {
         this.item = Items.EMPTY;
+    }
+
+    public HashSet<Feels> getFeels() {
+        return this.feels;
     }
 }

@@ -13,10 +13,9 @@ public abstract class Character {
         return this.cell;
     }
 
-    public void stCell(Cell cell) {
+    public void setCell(Cell cell) {
         this.cell = cell;
     }
-
 
     public boolean isPlaying() {
         return this.isPlaying;

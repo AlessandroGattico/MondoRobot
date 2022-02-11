@@ -75,7 +75,7 @@ public class House {
                 random = getRandomCoordinates(3);
             } while (!this.neighboursEmpty(this.map[random[0]][random[1]]));
 
-            this.washingMachines[i].stCell(this.map[random[0]][random[1]]);
+            this.washingMachines[i].setCell(this.map[random[0]][random[1]]);
             this.washingMachines[i].getCell().addItem(Items.WASHINGMACHINE);
             this.addNeighbourFeels(this.washingMachines[i].getCell(), Feels.WASH);
             this.washingMachines[i].setPlaying(true);
@@ -95,22 +95,22 @@ public class House {
         for (Cell[] row : this.map) {
             for (Cell cell : row) {
                 neighbours = new Cell[4];
-                if (cell.getY() - 1 >= 0) {
+                if (cell.getY() - 1 >= 1) {
                     neighbours[0] = this.map[cell.getY() - 1][cell.getX()];    //north
                 } else {
                     neighbours[0] = null;
                 }
-                if (cell.getX() + 1 < this.dimension) {
+                if (cell.getX() + 1 < this.dimension - 1) {
                     neighbours[1] = this.map[cell.getY()][cell.getX() + 1];    //east
                 } else {
                     neighbours[1] = null;
                 }
-                if (cell.getY() + 1 < this.dimension) {
+                if (cell.getY() + 1 < this.dimension - 1) {
                     neighbours[2] = this.map[cell.getY() + 1][cell.getX()];    //south
                 } else {
                     neighbours[2] = null;
                 }
-                if (cell.getX() - 1 >= 0) {
+                if (cell.getX() - 1 >= 1) {
                     neighbours[3] = this.map[cell.getY()][cell.getX() - 1];    //west
                 } else {
                     neighbours[3] = null;

@@ -5,6 +5,5 @@ public enum Feels {
     WET,        //water
     ANIMAL,     //pet
     BRICK,      //wall
-    WASHSINK,
     WASH;       //washing machine
 }
