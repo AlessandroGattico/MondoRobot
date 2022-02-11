@@ -9,14 +9,14 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 
-public class HuntTheWumpusView extends JFrame {
+public class MondoRobotView extends JFrame {
     private MapView mapView;
     private SolutionView solutionView;
     private ControlView controlView;
     private ImageIcon icon;
     private House house;
 
-    public HuntTheWumpusView(House house) {
+    public MondoRobotView(House house) {
         super("Hunt the wumpus");
         this.house = house;
         this.initializeComponents();
@@ -35,9 +35,6 @@ public class HuntTheWumpusView extends JFrame {
         this.setVisible(true);
     }
 
-    /**
-     * Sets in place the components of the view.
-     */
     private void initializeComponents() {
         this.setSize(1200, 800);
         this.setMinimumSize(new Dimension(1000, 650));
@@ -71,47 +68,27 @@ public class HuntTheWumpusView extends JFrame {
         this.add(this.controlView, gridBag);
     }
 
-    /**
-     * Returns the control view.
-     *
-     * @return {@link ControlView control view}.
-     */
     public ControlView getControlView() {
         return this.controlView;
     }
 
-    /**
-     * Returns the solution view.
-     *
-     * @return {@link SolutionView solution vew}.
-     */
+
     public SolutionView getSolutionView() {
         return this.solutionView;
     }
 
-    /**
-     * Updates the views after the player's move.
-     *
-     * @param oldRoom previous player's room.
-     */
     public void updateViews(Cell oldCell) {
         this.mapView.updateView(this.house.getRobot(), oldCell);
         this.solutionView.updateView(this.house);
         this.controlView.updateView(this.house);
     }
 
-    /**
-     * Updates the views.
-     */
     public void updateViews() {
         this.mapView.updateView(this.house.getRobot());
         this.solutionView.updateView(this.house);
         this.controlView.updateView(this.house);
     }
 
-    /**
-     * Resets the views.
-     */
     public void resetViews() {
         this.controlView.resetView();
         this.mapView.resetView();

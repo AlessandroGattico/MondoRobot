@@ -24,10 +24,6 @@ public class ControlView extends JPanel {
     private int seconds;
     private PropertyChangeSupport support;
 
-
-    /**
-     * Creates the elements of the view.
-     */
     public ControlView() {
         super(new GridBagLayout());
         this.playButton = new MyButton("Play");
@@ -59,18 +55,11 @@ public class ControlView extends JPanel {
         this.setVisible(true);
     }
 
-    /**
-     * Adds the listener to the PropertyChangeSupport.
-     *
-     * @param listener to add.
-     */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         this.support.addPropertyChangeListener(listener);
     }
 
-    /**
-     * Sets in place the components of the view.
-     */
+
     private void initializeView() {
         GridBagConstraints gridBag = new GridBagConstraints();
 
@@ -114,61 +103,39 @@ public class ControlView extends JPanel {
         this.add(this.commands, gridBag);
     }
 
-    /**
-     * Starts or restarts the timer.
-     */
+
     public void timerStart() {
         this.countdown.start();
     }
 
-    /**
-     * Stops the timer.
-     */
+
     public void timerStop() {
         this.countdown.stop();
     }
 
-    /**
-     * Resets the timer ath the default seconds (10).
-     */
+
     public void timerReset() {
         this.countdown.stop();
         this.elapsedTime = DEFAULTTIME;
         this.seconds = DEFAULTTIME;
     }
 
-    /**
-     * Returns the play button.
-     *
-     * @return play button.
-     */
+
     public JButton getPlayButton() {
         return this.playButton;
     }
 
-    /**
-     * Returns the solution view button.
-     *
-     * @return solution view button.
-     */
+
     public JButton getSolutionButton() {
         return this.solutionButton;
     }
 
-    /**
-     * Returns the random move button.
-     *
-     * @return random move button.
-     */
+
     public JButton getRandomMoveButton() {
         return this.randomMoveButton;
     }
 
-    /**
-     * Updates the view with the new elements.
-     *
-     * @param world to get the elements from.
-     */
+
     public void updateView(House house) {
         StringBuilder popups = new StringBuilder();
 
@@ -190,9 +157,7 @@ public class ControlView extends JPanel {
         }
     }
 
-    /**
-     * Resets the view.
-     */
+
     protected void resetView() {
         this.timer.setText("");
         this.backpack.setText("");
@@ -202,12 +167,6 @@ public class ControlView extends JPanel {
     }
 }
 
-/**
- * Class that represents a custom text area.
- *
- * @author Gattico Alessandro
- * @see JTextArea
- */
 class MyTextArea extends JTextArea {
 
     public MyTextArea() {
@@ -223,12 +182,6 @@ class MyTextArea extends JTextArea {
     }
 }
 
-/**
- * Class that represents a custom button.
- *
- * @author Gattico Alessandro
- * @see JButton
- */
 class MyButton extends JButton {
 
     public MyButton(String name) {

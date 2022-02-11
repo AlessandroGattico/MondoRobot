@@ -3,9 +3,7 @@ package control;
 import model.Cell;
 import model.Directions;
 import model.House;
-import model.Room;
-import model.World;
-import view.HuntTheWumpusView;
+import view.MondoRobotView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,18 +14,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Random;
 
-/**
- * Class that represents the game controller.
- *
- * @author Gattico Alessandro
- * @see ActionListener
- * @see KeyListener
- * @see PropertyChangeListener
- */
 public class GameController implements ActionListener, KeyListener {
 
     private static final int DEFAULTDIMENSION = 10;
-    private final HuntTheWumpusView view;
+    private final MondoRobotView view;
     private final House house;
     private boolean visibleSolution;
     private PropertyChangeListener playerListener;
@@ -36,12 +26,9 @@ public class GameController implements ActionListener, KeyListener {
     private Random random;
     private boolean updating;
 
-    /**
-     * Creates the house, the view and the listeners.
-     */
     public GameController() {
         this.house = new House(DEFAULTDIMENSION);
-        this.view = new HuntTheWumpusView(this.house);
+        this.view = new MondoRobotView(this.house);
         this.visibleSolution = false;
         this.updating = false;
         this.random = new Random();
@@ -118,9 +105,6 @@ public class GameController implements ActionListener, KeyListener {
         this.addListeners();
     }
 
-    /**
-     * Adds the listeners to the buttons of the view and registers the PropertyChangeListeners.
-     */
     private void addListeners() {
         this.view.getControlView().getPlayButton().addActionListener(this);
         this.view.getControlView().getSolutionButton().addActionListener(this);
@@ -194,25 +178,19 @@ public class GameController implements ActionListener, KeyListener {
         if (!this.updating && this.house.getPlayer().isPlaying()) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
-                    this.house.getPlayer().turn(Directions.TURNLEFT);
+                    this.house.getRobot().turn(Directions.TURNLEFT);
                     break;
                 case KeyEvent.VK_RIGHT:
-                    this.house.getPlayer().turn(Directions.TURNRIGHT);
+                    this.house.getRobot().turn(Directions.TURNRIGHT);
                     break;
                 case KeyEvent.VK_W:
-                    this.house.getPlayer().move(Directions.MOVEFORWARD, false);
+                    this.house.getRobot().move();
                     break;
-                case KeyEvent.VK_S:
-                    this.house.getPlayer().move(Directions.MOVEBACKWARDS, false);
-                    break;
-                case KeyEvent.VK_A:
-                    this.house.getPlayer().move(Directions.MOVELEFT, false);
-                    break;
-                case KeyEvent.VK_D:
-                    this.house.getPlayer().move(Directions.MOVERIGHT, false);
+                case KeyEvent.VK_T:
+                    this.house.getRobot().turOn();
                     break;
                 case KeyEvent.VK_SPACE:
-                    this.house.getPlayer().shoot();
+                    this.house.getRobot().repair();
                     break;
                 default:
                     break;

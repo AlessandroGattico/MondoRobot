@@ -112,9 +112,6 @@ public class MapView extends JPanel {
         }
     }
 
-    /**
-     * Resets the view.
-     */
     protected void resetView() {
         for (int i = 0; i < this.dimension; i++) {
             for (int j = 0; j < this.dimension; j++) {
