@@ -1,5 +1,6 @@
 package model;
 
+import java.beans.PropertyChangeListener;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -9,8 +10,10 @@ public class House {
     private WashingMachine[] washingMachines;
     private Stove[] stoves;
     private Pet[] pets;
+    private Sink[] sinks;
     private int dimension;
     private HashSet<String> messages;
+    private boolean gameOn;
 
 
     public House(int dim) {
@@ -20,7 +23,9 @@ public class House {
         this.stoves = new Stove[Math.round(this.dimension / 2)];
         this.pets = new Pet[Math.round(this.dimension / 2)];
         this.washingMachines = new WashingMachine[Math.round(this.dimension / 2)];
+        this.sinks = new Sink[Math.round(this.dimension/2)];
         this.messages = new HashSet<>();
+        this.gameOn = false;
 
         this.setupHouse();
     }
@@ -36,6 +41,7 @@ public class House {
             this.washingMachines[i] = new WashingMachine();
             this.stoves[i] = new Stove();
             this.pets[i] = new Pet();
+            this.sinks[i] = new Sink();
         }
     }
 
@@ -55,12 +61,26 @@ public class House {
         return this.dimension;
     }
 
+    public boolean isGameOn() {
+        return this.gameOn;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        for (int i = 0; i < this.stoves.length; i++) {
+            this.stoves[i].addPropertyChangeListener(listener);
+            this.washingMachines[i].addPropertyChangeListener(listener);
+            this.pets[i].addPropertyChangeListener(listener);
+            this.sinks[i].addPropertyChangeListener(listener);
+        }
+    }
+
     public void play() {
         this.setNeighbours();
         this.setupRobot();
         this.setupStoves();
         this.setupWashingMachines();
         this.setupPets();
+        this.gameOn = true;
     }
 
     private void setupPets() {
@@ -159,5 +179,12 @@ public class House {
                 r.deleteFeels(feel);
             }
         }
+    }
+
+    public void updateWorld() {
+        
+    }
+
+    public void resetGame() {
     }
 }

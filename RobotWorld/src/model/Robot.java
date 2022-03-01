@@ -1,5 +1,6 @@
 package model;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class Robot extends Character {
@@ -31,6 +32,10 @@ public class Robot extends Character {
 
     public void resetMoves() {
         this.moves = 0;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener playerListener) {
+        this.support.addPropertyChangeListener(playerListener);
     }
 
     public void turn(Directions direction) {
@@ -79,13 +84,13 @@ public class Robot extends Character {
     public void move() {
         Cell oldCell = this.cell;
 
-        this.moves++;
-
         switch (this.facing) {
             case NORTH:
                 if (this.cell.getNeighbours()[0] != null) {
                     if (this.cell.getNeighbours()[0].getItem() != Items.EMPTY) {
                         this.changeRobotCell(this.cell.getNeighbours()[0]);
+                        this.moves++;
+                        this.support.firePropertyChange("move", oldCell, this.cell);
                     } else {
                         this.support.firePropertyChange("bump", 0, 0);
                     }
@@ -95,6 +100,8 @@ public class Robot extends Character {
                 if (this.cell.getNeighbours()[1] != null) {
                     if (this.cell.getNeighbours()[1].getItem() != Items.EMPTY) {
                         this.changeRobotCell(this.cell.getNeighbours()[1]);
+                        this.moves++;
+                        this.support.firePropertyChange("move", oldCell, this.cell);
                     } else {
                         this.support.firePropertyChange("bump", 0, 0);
                     }
@@ -104,6 +111,8 @@ public class Robot extends Character {
                 if (this.cell.getNeighbours()[2] != null) {
                     if (this.cell.getNeighbours()[2].getItem() != Items.EMPTY) {
                         this.changeRobotCell(this.cell.getNeighbours()[2]);
+                        this.moves++;
+                        this.support.firePropertyChange("move", oldCell, this.cell);
                     } else {
                         this.support.firePropertyChange("bump", 0, 0);
                     }
@@ -113,6 +122,8 @@ public class Robot extends Character {
                 if (this.cell.getNeighbours()[3] != null) {
                     if (this.cell.getNeighbours()[3].getItem() != Items.EMPTY) {
                         this.changeRobotCell(this.cell.getNeighbours()[3]);
+                        this.moves++;
+                        this.support.firePropertyChange("move", oldCell, this.cell);
                     } else {
                         this.support.firePropertyChange("bump", 0, 0);
                     }
@@ -121,7 +132,6 @@ public class Robot extends Character {
             default:
                 break;
         }
-        this.support.firePropertyChange("move", oldCell, this.cell);
     }
 
     private void changeRobotCell(Cell neighbour) {
@@ -134,22 +144,38 @@ public class Robot extends Character {
         switch (this.facing) {
             case NORTH:
                 if (this.cell.getNeighbours()[0] != null) {
-                    this.support.firePropertyChange("on", this.cell, this.cell.getNeighbours()[0]);
+                    if (this.cell.getNeighbours()[0].getItem() == Items.STOVE) {
+                        this.support.firePropertyChange("on", this.cell, this.cell.getNeighbours()[0]);
+                    } else {
+                        this.support.firePropertyChange("nothing", this.cell, this.cell.getNeighbours()[0]);
+                    }
                 }
                 break;
             case EAST:
                 if (this.cell.getNeighbours()[1] != null) {
-                    this.support.firePropertyChange("on", this.cell, this.cell.getNeighbours()[1]);
+                    if (this.cell.getNeighbours()[1].getItem() == Items.STOVE) {
+                        this.support.firePropertyChange("on", this.cell, this.cell.getNeighbours()[1]);
+                    } else {
+                        this.support.firePropertyChange("nothing", this.cell, this.cell.getNeighbours()[1]);
+                    }
                 }
                 break;
             case SOUTH:
                 if (this.cell.getNeighbours()[2] != null) {
-                    this.support.firePropertyChange("on", this.cell, this.cell.getNeighbours()[2]);
+                    if (this.cell.getNeighbours()[2].getItem() == Items.STOVE) {
+                        this.support.firePropertyChange("on", this.cell, this.cell.getNeighbours()[2]);
+                    } else {
+                        this.support.firePropertyChange("nothing", this.cell, this.cell.getNeighbours()[2]);
+                    }
                 }
                 break;
             case WEST:
                 if (this.cell.getNeighbours()[3] != null) {
-                    this.support.firePropertyChange("on", this.cell, this.cell.getNeighbours()[3]);
+                    if (this.cell.getNeighbours()[3].getItem() == Items.STOVE) {
+                        this.support.firePropertyChange("on", this.cell, this.cell.getNeighbours()[3]);
+                    } else {
+                        this.support.firePropertyChange("nothing", this.cell, this.cell.getNeighbours()[3]);
+                    }
                 }
                 break;
             default:
@@ -161,26 +187,44 @@ public class Robot extends Character {
         switch (this.facing) {
             case NORTH:
                 if (this.cell.getNeighbours()[0] != null) {
-                    this.support.firePropertyChange("repair", this.cell, this.cell.getNeighbours()[0]);
+                    if (this.cell.getNeighbours()[0].getItem() == Items.SINK) {
+                        this.support.firePropertyChange("repair", this.cell, this.cell.getNeighbours()[0]);
+                    } else {
+                        this.support.firePropertyChange("nothing", this.cell, this.cell.getNeighbours()[0]);
+                    }
                 }
                 break;
             case EAST:
                 if (this.cell.getNeighbours()[1] != null) {
-                    this.support.firePropertyChange("repair", this.cell, this.cell.getNeighbours()[1]);
+                    if (this.cell.getNeighbours()[1].getItem() == Items.SINK) {
+                        this.support.firePropertyChange("repair", this.cell, this.cell.getNeighbours()[1]);
+                    } else {
+                        this.support.firePropertyChange("nothing", this.cell, this.cell.getNeighbours()[1]);
+                    }
                 }
                 break;
             case SOUTH:
                 if (this.cell.getNeighbours()[2] != null) {
-                    this.support.firePropertyChange("repair", this.cell, this.cell.getNeighbours()[2]);
+                    if (this.cell.getNeighbours()[2].getItem() == Items.SINK) {
+                        this.support.firePropertyChange("repair", this.cell, this.cell.getNeighbours()[2]);
+                    } else {
+                        this.support.firePropertyChange("nothing", this.cell, this.cell.getNeighbours()[2]);
+                    }
                 }
                 break;
             case WEST:
                 if (this.cell.getNeighbours()[3] != null) {
-                    this.support.firePropertyChange("shoot", this.cell, this.cell.getNeighbours()[3]);
+                    if (this.cell.getNeighbours()[3].getItem() == Items.SINK) {
+                        this.support.firePropertyChange("repair", this.cell, this.cell.getNeighbours()[3]);
+                    } else {
+                        this.support.firePropertyChange("nothing", this.cell, this.cell.getNeighbours()[3]);
+                    }
                 }
                 break;
             default:
                 break;
         }
     }
+
+
 }

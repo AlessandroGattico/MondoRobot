@@ -63,8 +63,8 @@ public class ControlView extends JPanel {
     private void initializeView() {
         GridBagConstraints gridBag = new GridBagConstraints();
 
-        gridBag.weightx = 1;
-        gridBag.weighty = 1;
+        gridBag.weightx = 1.5;
+        gridBag.weighty = 1.5;
         gridBag.gridx = 4;
         gridBag.gridy = 0;
         gridBag.fill = GridBagConstraints.BOTH;
@@ -75,18 +75,10 @@ public class ControlView extends JPanel {
         gridBag.fill = GridBagConstraints.BOTH;
         this.add(this.solutionButton, gridBag);
 
-        gridBag.gridx = 4;
-        gridBag.gridy = 2;
-        gridBag.fill = GridBagConstraints.BOTH;
-        this.add(this.randomMoveButton, gridBag);
 
         gridBag.gridx = 1;
         gridBag.gridy = 0;
         this.add(this.timer, gridBag);
-
-        gridBag.gridx = 1;
-        gridBag.gridy = 1;
-        this.add(this.backpack, gridBag);
 
         gridBag.gridx = 1;
         gridBag.gridy = 2;

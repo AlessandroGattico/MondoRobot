@@ -48,7 +48,6 @@ public class GameController implements ActionListener, KeyListener {
                     }
                 } else if (evt.getPropertyName().equals("shoot")) {
                     updating = true;
-                    house.checkShoot((Room) evt.getNewValue());
                     house.updateWorld();
                     view.updateViews();
                     if (house.getRobot().isPlaying()) {
@@ -62,17 +61,6 @@ public class GameController implements ActionListener, KeyListener {
                     updating = true;
                     view.updateViews();
                     updating = false;
-                }
-            }
-        };
-
-        this.countdownListener = new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("Countdown")) {
-                    if (house.isGameOn() && house.getRobot().isPlaying()) {
-                        house.getRobot().move(Directions.values()[random.nextInt(4)], true);
-                    }
                 }
             }
         };
@@ -110,7 +98,7 @@ public class GameController implements ActionListener, KeyListener {
         this.view.getControlView().getSolutionButton().addActionListener(this);
         this.view.getControlView().getRandomMoveButton().addActionListener(this);
         this.view.getControlView().addPropertyChangeListener(this.countdownListener);
-        this.house.getPlayer().addPropertyChangeListener(this.playerListener);
+        this.house.getRobot().addPropertyChangeListener(this.playerListener);
         this.house.addPropertyChangeListener(this.gameListener);
         this.view.addKeyListener(this);
     }
@@ -121,9 +109,9 @@ public class GameController implements ActionListener, KeyListener {
 
         switch (e.getActionCommand()) {
             case "Play":
-                if (this.house.getPlayer().isPlaying()) {
+                if (this.house.getRobot().isPlaying()) {
                     this.view.getControlView().timerStop();
-                    choice = JOptionPane.showConfirmDialog(null, "Want to restart the game?", "Hunt the Wumpus",
+                    choice = JOptionPane.showConfirmDialog(null, "Want to restart the game?", "Robot World",
                             JOptionPane.YES_NO_OPTION);
                     if (choice == JOptionPane.YES_OPTION) {
                         this.house.resetGame();
@@ -132,7 +120,7 @@ public class GameController implements ActionListener, KeyListener {
                     } else {
                         this.view.getControlView().timerStart();
                     }
-                } else if (this.updating && !this.house.getPlayer().isPlaying()) {
+                } else if (this.updating && !this.house.getRobot().isPlaying()) {
                     this.house.resetGame();
                     this.view.resetViews();
                     this.startGame();
@@ -145,19 +133,11 @@ public class GameController implements ActionListener, KeyListener {
                 this.visibleSolution = !this.visibleSolution;
                 this.view.getSolutionView().setVisible(this.visibleSolution);
                 break;
-            case "Random move":
-                if (this.house.getPlayer().isPlaying()) {
-                    house.getPlayer().move(Directions.values()[random.nextInt(4)], true);
-                }
-                break;
             default:
                 break;
         }
     }
 
-    /**
-     * Starts the game and the timer.
-     */
     private void startGame() {
         this.updating = true;
         this.house.play();
@@ -175,7 +155,7 @@ public class GameController implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (!this.updating && this.house.getPlayer().isPlaying()) {
+        if (!this.updating && this.house.getRobot().isPlaying()) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
                     this.house.getRobot().turn(Directions.TURNLEFT);

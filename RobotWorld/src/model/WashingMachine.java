@@ -1,6 +1,11 @@
 package model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 public class WashingMachine extends Character {
+
+    private PropertyChangeSupport support;
 
     public WashingMachine() {
         super();
@@ -12,4 +17,7 @@ public class WashingMachine extends Character {
         }
     }
 
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        this.support.addPropertyChangeListener(listener);
+    }
 }
