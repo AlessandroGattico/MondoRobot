@@ -42,41 +42,41 @@ public class Robot extends Character {
         Directions oldDirection;
         oldDirection = this.facing;
 
-        switch (direction) {
-            case TURNLEFT:
-                switch (this.facing) {
-                    case NORTH:
-                        this.facing = Directions.WEST;
-                        break;
-                    case SOUTH:
-                        this.facing = Directions.EAST;
-                        break;
-                    case WEST:
-                        this.facing = Directions.SOUTH;
-                        break;
-                    case EAST:
-                        this.facing = Directions.NORTH;
-                        break;
-                }
-                break;
-            case TURNRIGHT:
-                switch (this.facing) {
-                    case NORTH:
-                        this.facing = Directions.EAST;
-                        break;
-                    case SOUTH:
-                        this.facing = Directions.WEST;
-                        break;
-                    case WEST:
-                        this.facing = Directions.NORTH;
-                        break;
-                    case EAST:
-                        this.facing = Directions.SOUTH;
-                        break;
-                }
-                break;
+        if (direction == Directions.TURNLEFT) {
+            switch (this.facing) {
+                case NORTH:
+                    this.facing = Directions.WEST;
+                    break;
+                case SOUTH:
+                    this.facing = Directions.EAST;
+                    break;
+                case WEST:
+                    this.facing = Directions.SOUTH;
+                    break;
+                case EAST:
+                    this.facing = Directions.NORTH;
+                    break;
+                default:
+                    break;
+            }
+        } else if (direction == Directions.TURNRIGHT) {
+            switch (this.facing) {
+                case NORTH:
+                    this.facing = Directions.EAST;
+                    break;
+                case SOUTH:
+                    this.facing = Directions.WEST;
+                    break;
+                case WEST:
+                    this.facing = Directions.NORTH;
+                    break;
+                case EAST:
+                    this.facing = Directions.SOUTH;
+                    break;
+                default:
+                    break;
+            }
         }
-
         this.moves++;
         this.support.firePropertyChange("turn", oldDirection, this.facing);
     }

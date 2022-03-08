@@ -75,7 +75,6 @@ public class ControlView extends JPanel {
         gridBag.fill = GridBagConstraints.BOTH;
         this.add(this.solutionButton, gridBag);
 
-
         gridBag.gridx = 1;
         gridBag.gridy = 0;
         this.add(this.timer, gridBag);
